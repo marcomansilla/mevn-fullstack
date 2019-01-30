@@ -13,7 +13,7 @@ Que funciona?
 -------------
 
 * npm run start inicia el servidor backend en el puerto 3000 si no hay otro especificado en process.env.port
-* http://localhost/api/[coleccion] muestra los datos de las colecciones existentes, mencionadas arriba.
+* http://localhost:3000/api/[coleccion] muestra los datos de las colecciones existentes, mencionadas arriba.
 * metodos: GET, POST, DELETE y PUT implementados en la api
 
 TODO
