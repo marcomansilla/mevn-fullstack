@@ -37,3 +37,9 @@ para hacer esto en mongo hay que hacer lo siguiente luego de crear la nueva base
 ``> db.createUser({user: "myuser", pwd: "mypass", roles:["dbOwner"]})``
 
 con eso deberia ser suficiente para autenticarse en la base de datos.
+
+Herramientas complementarias
+----------------------------
+
+- Postman
+- Robomongo
