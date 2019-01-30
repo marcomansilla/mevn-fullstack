@@ -41,7 +41,19 @@ router.delete('/:collection/:id', async (req, res)=>{
     res.status(204).send();
 });
 // Update posts
+router.put('/:collection/:id', async (req, res)=>{
+    const collections=await loadCollections();
+    await collections.collection(req.params.collection).updateOne(
+	{_id:mongodb.ObjectID(req.params.id)},
+	{
+	    $set:req.body
+	}
+    );
+    res.status(201).send();
+});
 
+
+// Database api code
 var loadCollections = async ()=>{
     const client=await  mongodb.MongoClient.connect('mongodb://biblioteca:bibliotecario@localhost:27017/biblioteca',{useNewUrlParser:true});
     return client.db('biblioteca');
