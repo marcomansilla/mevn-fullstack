@@ -19,10 +19,10 @@ Que funciona?
 TODO
 ----
 
-* Frontend Vue
-* Formularios
+* Frontend Vue - Iniciado
+* Formularios - Iniciado
 * Validacion
-* CSS bonito
+* CSS bonito - Iniciado (No es bonito, pero pasa)
 
 EXTRAS
 ------

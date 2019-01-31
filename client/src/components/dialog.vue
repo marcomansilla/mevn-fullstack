@@ -33,8 +33,13 @@
 <script>
 export default {
     name:'Dialog',
+    props:['tipo','registro'],
     data(){
 	return {
+	    titulos:{
+		crear:"Crear registro",
+		editar:"Editar registro"
+	    }
 	}
     },
     methods:{
