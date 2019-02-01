@@ -1,9 +1,10 @@
+/* eslint-disable */
 <template>
 <div class="container">
   <h1>Listado de libros disponibles</h1>
   <div class="row">
     <div class="col-sm-4">
-      <h3>Libros <button class="primary"><i class="fa fa-plus"></i></button></h3>
+      <h3>Libros <button class="primary" @click="openDialog('crear','libros')"><i class="fa fa-plus"></i></button></h3>
       <div class="row">
 	<div class="card error fluid col-sm-12" v-for="libro in libros">
 	  <h4>{{libro.titulo}}</h4>
@@ -11,7 +12,7 @@
 	  <p><em>Editorial:</em> <strong>{{getEditorial(libro.editorial)}}</strong></p>
 	  <div class="row">
 	    <div class="col-lg-6">
-	      <button class="primary btn" @click="editDialog"><i class="fa fa-pencil"></i> Editar</button>
+	      <button class="primary btn"><i class="fa fa-pencil"></i> Editar</button>
 	    </div>
 	    <div class="col-sm-6">
 	      <button class="danger btn" type="button" @click="removeRecord('libros',libro._id)"><i class="fa fa-trash"></i> Eliminar</button>
@@ -33,6 +34,7 @@
 </template>
 
 <script>
+import { EventBus } from '../event-bus.js'
 import	Service	 from '../service'
 import Dialog from './dialog'
 
@@ -52,8 +54,9 @@ export default {
 	}
     },
     methods:{
-	editDialog(){
+	openDialog(task, coleccion, record={}){
 	    this.displayDialog=true
+	    EventBus.$emit('displayDialog', {task, coleccion, record})
 	},
 	getAutor(id){
 	    var autor= this.autores.find((autor)=>autor._id===id);
@@ -81,6 +84,10 @@ export default {
 	    }catch(e){
 		this.error=e;
 	    }
+	}),
+	EventBus.$on('dbSuccess',async  (payload)=>{
+	    this.displayDialog=false;
+	    this[payload]= await Service.getRecords(payload);
 	})
     }
 }

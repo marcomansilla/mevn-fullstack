@@ -16,7 +16,15 @@ class Service {
 	return data;
     }
     // create record
-
+    static async newRecord(collection, payload){
+	var data = [];
+	await axios.post(`${url}${collection}`, payload)
+	    .then(res=>{
+		data=res;
+	    })
+	    .catch(error=>console.log(error));
+	return data;
+    }
     // delete record
     static async deleteRecord(collection, id){
 	await axios.delete(`${url}${collection}/${id}`).then(res=>{status:204}).catch(e=>console.log(e));
