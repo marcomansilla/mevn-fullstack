@@ -12,7 +12,7 @@
 	  <p><em>Editorial:</em> <strong>{{getEditorial(libro.editorial)}}</strong></p>
 	  <div class="row">
 	    <div class="col-lg-6">
-	      <button class="primary btn"><i class="fa fa-pencil"></i> Editar</button>
+	      <button class="primary btn" @click="openDialog('editar','libros', libro)"><i class="fa fa-pencil"></i> Editar</button>
 	    </div>
 	    <div class="col-sm-6">
 	      <button class="danger btn" type="button" @click="removeRecord('libros',libro._id)"><i class="fa fa-trash"></i> Eliminar</button>
@@ -54,9 +54,9 @@ export default {
 	}
     },
     methods:{
-	openDialog(task, coleccion, record={}){
+	openDialog(task, coleccion, registro={}){
 	    this.displayDialog=true
-	    EventBus.$emit('displayDialog', {task, coleccion, record})
+	    EventBus.$emit('displayDialog', {task, coleccion, registro})
 	},
 	getAutor(id){
 	    var autor= this.autores.find((autor)=>autor._id===id);

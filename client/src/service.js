@@ -26,10 +26,21 @@ class Service {
 	return data;
     }
     // delete record
-    static async deleteRecord(collection, id){
-	await axios.delete(`${url}${collection}/${id}`).then(res=>{status:204}).catch(e=>console.log(e));
+    static async deleteRecord(collection, payload){
+	await axios.delete(`${url}${collection}/${payload}`).then(res=>{status:204}).catch(e=>console.log(e));
     }
     // update record
+    static async updateRecord(payload){
+	console.log('UPDATING ON SERVICE');
+	console.log(payload);
+	var data = [];
+	await axios.put(`${url}${payload.collection}/${payload.id}`, payload.record)
+	    .then((res)=>{
+		data=res;
+	    })
+	    .catch(error=>console.log(error));
+	return data;
+    }
 }
 
 export default Service ;
