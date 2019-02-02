@@ -65,9 +65,7 @@ export default {
 	    if (this.methodType=="post"){
 		var res = await Service.newRecord(this.coleccion, this.registro)
 	    } else {
-		console.log('UPDATING RECORD')
 		var res = await Service.updateRecord({collection:this.coleccion, record:this.registro, id:this.recordID})
-		console.log(res)
 	    }
 	    if (res.status==201){
 		EventBus.$emit('dbSuccess', this.coleccion)

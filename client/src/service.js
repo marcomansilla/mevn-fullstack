@@ -31,8 +31,6 @@ class Service {
     }
     // update record
     static async updateRecord(payload){
-	console.log('UPDATING ON SERVICE');
-	console.log(payload);
 	var data = [];
 	await axios.put(`${url}${payload.collection}/${payload.id}`, payload.record)
 	    .then((res)=>{

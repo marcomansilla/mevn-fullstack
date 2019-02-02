@@ -73,8 +73,11 @@ export default {
 	    return 'No se ha encontrado la editorial'
 	},
 	async removeRecord(collection, id){
-	    var res = await Service.deleteRecord(collection,id);
-	    this[collection] = await Service.getRecords(collection);
+	    var remove = confirm("Confirma que desea eliminar el registro?")
+	    if (remove){
+		var res = await Service.deleteRecord(collection,id);
+		this[collection] = await Service.getRecords(collection);
+	    }
 	}
     },
     created(){
