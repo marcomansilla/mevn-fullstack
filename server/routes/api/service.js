@@ -15,6 +15,7 @@ router.get('/:collection',async (req, res)=>{
     res.send(await collections.collection(req.params.collection).find().toArray());
 });
 
+// Post collection
 router.post('/:collection',async (req, res)=>{
     const collections = await loadCollections();
     await collections.collection(req.params.collection).insertOne(req.body);

@@ -8,28 +8,28 @@
 	<div class="row">
 	  <div class="col-sm-12 col-md-6">
 	    <label for="titulo">Titulo</label>
-	    <input type="text" id="titulo" placeholder="Titulo" v-model="registro.titulo"/>
+	    <input type="text" id="titulo" placeholder="Titulo" v-model.lazy="registro.titulo"/>
 	  </div>
 	  <div class="col-sm-12 col-md-6">
 	    <label for="autores">Autor</label>
-	    <select id="autores" name="autores" v-model="registro.autor">
+	    <select id="autores" name="autores" v-model.lazy="registro.autor">
 	      <option value="" disabled selected>Seleccione el autor</option>
 	      <option v-for="(autor, key) in autores" :value="autor._id">{{autor.apellido}}, {{autor.nombre}}</option>
 	    </select>
 	  </div>
 	  <div class="col-sm-12 col-md-6">
 	    <label for="isbn">ISBN</label>
-	    <input type="text" id="isbn" placeholder="ISBN" v-model="registro.isbn"/>
+	    <input type="text" id="isbn" placeholder="ISBN" v-model.lazy="registro.isbn"/>
 	  </div>
 	  <div class="col-sm-12 col-md-6">
 	    <label for="editoriales">Editorial</label>
-	    <select id="editoriales" name="editoriales" v-model="registro.editorial" placeholder="Seleccione la editorial">
+	    <select id="editoriales" name="editoriales" v-model.lazy="registro.editorial" placeholder="Seleccione la editorial">
 	      <option value="" disabled selected>Seleccione la editorial</option>
 	      <option v-for="(editorial, key) in editoriales" :value="editorial._id">{{editorial.nombre}}</option>
 	    </select>
 	  </div>
 	</div>
-	<button type="submit" class="primary" @click.prevent="addRecord">Enviar</button>
+	<button type="submit" class="primary" @click.prevent="addOrUpdateRecord">Enviar</button>
 	<button class="danger" @click.prevent="cancel">Cancelar</button>
       </fieldset>
     </form>
@@ -58,9 +58,10 @@ export default {
     },
     methods:{
 	cancel(){
-	    this.$emit('cancel-action')
+	    this.$emit('cancel-action');
+	    this.registro={}
 	},
-	async addRecord(){
+	async addOrUpdateRecord(){
 	    console.log(this.registro)
 	    if (this.methodType=="post"){
 		var res = await Service.newRecord(this.coleccion, this.registro)
@@ -110,6 +111,6 @@ export default {
     bottom: 0;
     left: 0;
     background-color: rgba(255,255,255,.7);
-    z-index: 999999;
-}
+  z-index: 999999;
+	}
 </style>

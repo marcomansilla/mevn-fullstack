@@ -12,15 +12,15 @@ El frontend corre con VueJS.
 Que funciona?
 -------------
 
-* npm run start inicia el servidor backend en el puerto 3000 si no hay otro especificado en process.env.port
+* npm run start inicia el servidor backend en el puerto 3000 si no hay otro especificado en process.env.port.
 * http://localhost:3000/api/[coleccion] muestra los datos de las colecciones existentes, mencionadas arriba.
-* metodos: GET, POST, DELETE y PUT implementados en la api
+* metodos: GET, POST, DELETE y PUT implementados en la api back y front end.
+* Frontend Vue - Iniciado
+* Formularios - Iniciado
 
 TODO
 ----
 
-* Frontend Vue - Iniciado
-* Formularios - Iniciado
 * Validacion
 * CSS bonito - Iniciado (No es bonito, pero pasa)
 
