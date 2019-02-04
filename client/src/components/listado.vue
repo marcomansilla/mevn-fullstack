@@ -26,16 +26,16 @@
     <div class="col-sm-4">
       <h3>Autores <button class="primary" @click="openDialog('crear','autores')"><i class="fa fa-plus"></i></button></h3>
       <div class="row">
-	<div class="card error fluid col-sm-12" v-for="libro in libros">
-	  <h4>{{libro.titulo}}</h4>
-	  <p><em>Autor: </em> <strong>{{getAutor(libro.autor)}}</strong></p>
-	  <p><em>Editorial:</em> <strong>{{getEditorial(libro.editorial)}}</strong></p>
+	<div class="card warning fluid col-sm-12" v-for="autor in autores">
+	  <h4>{{autor.apellido}}, {{autor.nombre}}</h4>
+	  <p><strong>Nacionalidad: </strong> {{autor.nacionalidad}}</p>
+	  <p><strong>E-mail: </strong> <em>{{autor.email}}</em></p>
 	  <div class="row">
 	    <div class="col-lg-6">
-	      <button class="primary btn" @click="openDialog('editar','libros', libro)"><i class="fa fa-pencil"></i> Editar</button>
+	      <button class="primary btn" @click="openDialog('editar','autores', autor)"><i class="fa fa-pencil"></i> Editar</button>
 	    </div>
 	    <div class="col-sm-6">
-	      <button class="danger btn" type="button" @click="removeRecord('libros',libro._id)"><i class="fa fa-trash"></i> Eliminar</button>
+	      <button class="danger btn" type="button" @click="removeRecord('autores',autor._id)"><i class="fa fa-trash"></i> Eliminar</button>
 	    </div>
 	  </div>
 	</div>
@@ -45,16 +45,16 @@
     <div class="col-sm-4">
       <h3>Editoriales <button class="primary" @click="openDialog('crear','editoriales')"><i class="fa fa-plus"></i></button></h3>
       <div class="row">
-	<div class="card error fluid col-sm-12" v-for="libro in libros">
-	  <h4>{{libro.titulo}}</h4>
-	  <p><em>Autor: </em> <strong>{{getAutor(libro.autor)}}</strong></p>
-	  <p><em>Editorial:</em> <strong>{{getEditorial(libro.editorial)}}</strong></p>
+	<div class="card success fluid col-sm-12" v-for="editorial in editoriales">
+	  <h4>{{editorial.nombre}}</h4>
+	  <p><em>Direccion: </em> <strong>{{editorial.direccion}}</strong></p>
+	  <p><em>Telefono:</em> <strong>{{editorial.telefono}}</strong></p>
 	  <div class="row">
 	    <div class="col-lg-6">
-	      <button class="primary btn" @click="openDialog('editar','libros', libro)"><i class="fa fa-pencil"></i> Editar</button>
+	      <button class="primary btn" @click="openDialog('editar','editoriales', editorial)"><i class="fa fa-pencil"></i> Editar</button>
 	    </div>
 	    <div class="col-sm-6">
-	      <button class="danger btn" type="button" @click="removeRecord('libros',libro._id)"><i class="fa fa-trash"></i> Eliminar</button>
+	      <button class="danger btn" type="button" @click="removeRecord('editoriales',editorial._id)"><i class="fa fa-trash"></i> Eliminar</button>
 	    </div>
 	  </div>
 	</div>
@@ -144,6 +144,11 @@ dialog {
     position:absolute;
     z-index:999999999;
     top:25vh
+}
+
+.card.success {
+    background-color:#689f38;
+    color:#fff
 }
 
 dialog::backdrop {
