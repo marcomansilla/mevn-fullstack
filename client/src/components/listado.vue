@@ -1,8 +1,9 @@
 /* eslint-disable */
 <template>
 <div class="container">
-  <h1>Listado de libros disponibles</h1>
+  <h1>Listado de registros disponibles</h1>
   <div class="row">
+    <!-- Libros -->
     <div class="col-sm-4">
       <h3>Libros <button class="primary" @click="openDialog('crear','libros')"><i class="fa fa-plus"></i></button></h3>
       <div class="row">
@@ -21,11 +22,43 @@
 	</div>
       </div>
     </div>
+    <!-- Autores -->
     <div class="col-sm-4">
-      <h3>Autores</h3>
+      <h3>Autores <button class="primary" @click="openDialog('crear','autores')"><i class="fa fa-plus"></i></button></h3>
+      <div class="row">
+	<div class="card error fluid col-sm-12" v-for="libro in libros">
+	  <h4>{{libro.titulo}}</h4>
+	  <p><em>Autor: </em> <strong>{{getAutor(libro.autor)}}</strong></p>
+	  <p><em>Editorial:</em> <strong>{{getEditorial(libro.editorial)}}</strong></p>
+	  <div class="row">
+	    <div class="col-lg-6">
+	      <button class="primary btn" @click="openDialog('editar','libros', libro)"><i class="fa fa-pencil"></i> Editar</button>
+	    </div>
+	    <div class="col-sm-6">
+	      <button class="danger btn" type="button" @click="removeRecord('libros',libro._id)"><i class="fa fa-trash"></i> Eliminar</button>
+	    </div>
+	  </div>
+	</div>
+      </div>
     </div>
+    <!-- Editoriales -->
     <div class="col-sm-4">
-      <h3>Editoriales</h3>
+      <h3>Editoriales <button class="primary" @click="openDialog('crear','editoriales')"><i class="fa fa-plus"></i></button></h3>
+      <div class="row">
+	<div class="card error fluid col-sm-12" v-for="libro in libros">
+	  <h4>{{libro.titulo}}</h4>
+	  <p><em>Autor: </em> <strong>{{getAutor(libro.autor)}}</strong></p>
+	  <p><em>Editorial:</em> <strong>{{getEditorial(libro.editorial)}}</strong></p>
+	  <div class="row">
+	    <div class="col-lg-6">
+	      <button class="primary btn" @click="openDialog('editar','libros', libro)"><i class="fa fa-pencil"></i> Editar</button>
+	    </div>
+	    <div class="col-sm-6">
+	      <button class="danger btn" type="button" @click="removeRecord('libros',libro._id)"><i class="fa fa-trash"></i> Eliminar</button>
+	    </div>
+	  </div>
+	</div>
+      </div>
     </div>
   </div>
   <!-- dialog modal experiment -->
@@ -35,10 +68,11 @@
 
 <script>
 import { EventBus } from '../event-bus.js'
-import	Service	 from '../service'
+import {apiRequests} from '../mixins/apiRequests.js'
 import Dialog from './dialog'
 
 export default {
+    mixins:[apiRequests],
     name: 'listado',
     components:{
 	Dialog
@@ -46,10 +80,6 @@ export default {
     data(){
 	return {
 	    displayDialog:false,
-	    collections:['autores','editoriales','libros'],
-	    libros:[],
-	    autores:[],
-	    editoriales:[],
 	    error:null
 	}
     },
@@ -75,22 +105,15 @@ export default {
 	async removeRecord(collection, id){
 	    var remove = confirm("Confirma que desea eliminar el registro?")
 	    if (remove){
-		var res = await Service.deleteRecord(collection,id);
-		this[collection] = await Service.getRecords(collection);
+		var res = await this.deleteRecord(collection,id);
+		this[collection] = await this.getRecords(collection);
 	    }
 	}
     },
     created(){
-	this.collections.forEach(async(collection)=>{
-	    try {
-		this[collection] = await Service.getRecords(collection);
-	    }catch(e){
-		this.error=e;
-	    }
-	}),
 	EventBus.$on('dbSuccess',async  (payload)=>{
 	    this.displayDialog=false;
-	    this[payload]= await Service.getRecords(payload);
+	    this[payload]= await this.getRecords(payload);
 	})
     }
 }

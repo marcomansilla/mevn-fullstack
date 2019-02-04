@@ -29,7 +29,7 @@
 	    </select>
 	  </div>
 	</div>
-	<button type="submit" class="primary" @click.prevent="addOrUpdateRecord">Enviar</button>
+	<button type="submit" class="primary" @click.prevent="addOrUpdateRecord('libros')">Enviar</button>
 	<button class="danger" @click.prevent="cancel">Cancelar</button>
       </fieldset>
     </form>
@@ -41,27 +41,16 @@
 /* eslint-disable */
 import { apiRequests } from '../mixins/apiRequests'
 import { EventBus } from '../event-bus'
-import	Service	 from '../service'
 
 export default {
     mixins:[apiRequests],
     name:'Dialog',
     data(){
 	return {
-	    collections:['autores', 'editoriales'],
-	    autores:[],
-	    editoriales:[],
 	    titulo:''
 	}
     },
     created(){
-	this.collections.forEach(async(collection)=>{
-	    try {
-		this[collection] = await Service.getRecords(collection);
-	    }catch(e){
-		this.error=e;
-	    }
-	}),
 	EventBus.$on('displayDialog', (payload)=>{
 	    console.log(payload)
 	    if (payload.task==='crear'){
