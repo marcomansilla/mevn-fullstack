@@ -39,41 +39,19 @@
 
 <script>
 /* eslint-disable */
+import { apiRequests } from '../mixins/apiRequests'
 import { EventBus } from '../event-bus'
 import	Service	 from '../service'
 
 export default {
+    mixins:[apiRequests],
     name:'Dialog',
     data(){
 	return {
 	    collections:['autores', 'editoriales'],
 	    autores:[],
 	    editoriales:[],
-	    titulo:'',
-	    registro:{},
-	    recordID:null,
-	    methodType:'',
-	    coleccion:''
-	}
-    },
-    methods:{
-	cancel(){
-	    this.$emit('cancel-action');
-	    this.registro={}
-	},
-	async addOrUpdateRecord(){
-	    console.log(this.registro)
-	    if (this.methodType=="post"){
-		var res = await Service.newRecord(this.coleccion, this.registro)
-	    } else {
-		var res = await Service.updateRecord({collection:this.coleccion, record:this.registro, id:this.recordID})
-	    }
-	    if (res.status==201){
-		EventBus.$emit('dbSuccess', this.coleccion)
-	    }else{
-		console.log(res)
-	    }
-
+	    titulo:''
 	}
     },
     created(){
