@@ -51,7 +51,7 @@ export default {
 	}
     },
     created(){
-	EventBus.$on('displayDialogBook', (payload)=>{
+	EventBus.$on('displayDialogLibros', (payload)=>{
 	    console.log(payload)
 	    if (payload.task==='crear'){
 		this.titulo="Agregar registro";

@@ -62,7 +62,7 @@
     </div>
   </div>
   <!-- dialog modal experiment -->
-  <DialogBook v-show="displayDialogBook" @cancel-action="displayDialogBook=false"/>
+  <DialogBook v-show="displayDialogLibros" @cancel-action="displayDialogLibros=false"/>
 </div>
 </template>
 
@@ -79,14 +79,19 @@ export default {
     },
     data(){
 	return {
-	    displayDialogBook:false,
+	    displayDialogLibros:false,
+	    displayDialogAutores:false,
 	    error:null
 	}
     },
     methods:{
+	capitalizeFirstLetter(string) {
+	    return string.charAt(0).toUpperCase() + string.slice(1);
+	},
 	async openDialog(task, coleccion, registro={}){
-	    this.displayDialogBook=true
-	    await EventBus.$emit('displayDialogBook', {task, coleccion, registro})
+	    console.log(`displayDialog${this.capitalizeFirstLetter(coleccion)}`)
+	    this[`displayDialog${this.capitalizeFirstLetter(coleccion)}`]=true
+	    await EventBus.$emit(`displayDialog${this.capitalizeFirstLetter(coleccion)}`, {task, coleccion, registro})
 	},
 	getAutor(id){
 	    var autor= this.autores.find((autor)=>autor._id===id);
@@ -113,7 +118,7 @@ export default {
     created(){
 	this.collections.forEach(async (coleccion)=>{
 	    await EventBus.$on(`${coleccion}Success`,async  (payload)=>{
-		this.displayDialogBook=false;
+		this[`displayDialog${this.capitalizeFirstLetter(coleccion)}`]=false;
 		this[payload]= await this.getRecords(payload);
 	    })
 	})
