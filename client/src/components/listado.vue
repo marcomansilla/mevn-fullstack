@@ -62,31 +62,31 @@
     </div>
   </div>
   <!-- dialog modal experiment -->
-  <Dialog v-show="displayDialog" @cancel-action="displayDialog=false"/>
+  <DialogBook v-show="displayDialogBook" @cancel-action="displayDialogBook=false"/>
 </div>
 </template>
 
 <script>
 import { EventBus } from '../event-bus.js'
 import {apiRequests} from '../mixins/apiRequests.js'
-import Dialog from './dialog'
+import DialogBook from './dialogBook'
 
 export default {
     mixins:[apiRequests],
     name: 'listado',
     components:{
-	Dialog
+	DialogBook
     },
     data(){
 	return {
-	    displayDialog:false,
+	    displayDialogBook:false,
 	    error:null
 	}
     },
     methods:{
-	openDialog(task, coleccion, registro={}){
-	    this.displayDialog=true
-	    EventBus.$emit('displayDialog', {task, coleccion, registro})
+	async openDialog(task, coleccion, registro={}){
+	    this.displayDialogBook=true
+	    await EventBus.$emit('displayDialogBook', {task, coleccion, registro})
 	},
 	getAutor(id){
 	    var autor= this.autores.find((autor)=>autor._id===id);
@@ -111,9 +111,11 @@ export default {
 	}
     },
     created(){
-	EventBus.$on('dbSuccess',async  (payload)=>{
-	    this.displayDialog=false;
-	    this[payload]= await this.getRecords(payload);
+	this.collections.forEach(async (coleccion)=>{
+	    await EventBus.$on(`${coleccion}Success`,async  (payload)=>{
+		this.displayDialogBook=false;
+		this[payload]= await this.getRecords(payload);
+	    })
 	})
     }
 }

@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import { EventBus } from '../event-bus';
 
 export const apiRequests = {
@@ -19,14 +18,15 @@ export const apiRequests = {
     methods:{
 	async addOrUpdateRecord(){
 	    var res = [];
-	    console.log(this.registro);
 	    if (this.methodType=="post"){
 		res = await this.newRecord(this.coleccion, this.registro);
 	    } else {
 		res = await this.updateRecord({collection:this.coleccion, record:this.registro, id:this.recordID});
 	    }
 	    if (res.status==201){
-		EventBus.$emit('dbSuccess', this.coleccion);
+		EventBus.$emit(`${this.coleccion}Success`, this.coleccion);
+		this.registro={};
+		console.log('it works!, yay!!!');
 	    }else{
 		console.log(res);
 	    }
@@ -45,6 +45,7 @@ export const apiRequests = {
 	    });
 	    return data;
 	},
+	// MAIN API
 	// create record
 	async newRecord(collection, payload){
 	    var data = [];

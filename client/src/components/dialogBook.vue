@@ -44,14 +44,14 @@ import { EventBus } from '../event-bus'
 
 export default {
     mixins:[apiRequests],
-    name:'Dialog',
+    name:'DialogBook',
     data(){
 	return {
 	    titulo:''
 	}
     },
     created(){
-	EventBus.$on('displayDialog', (payload)=>{
+	EventBus.$on('displayDialogBook', (payload)=>{
 	    console.log(payload)
 	    if (payload.task==='crear'){
 		this.titulo="Agregar registro";
