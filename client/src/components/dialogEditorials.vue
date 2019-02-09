@@ -8,22 +8,18 @@
 	<div class="row">
 	  <div class="col-sm-12 col-md-6">
 	    <label for="nombre">Nombre</label>
-	    <input type="text" id="nombre" placeholder="Nombre" v-model.lazy="registro.nombre"/>
+	    <input type="text" id="nombre" placeholder="Nombre de la editorial" v-model.lazy="registro.nombre"/>
 	  </div>
 	  <div class="col-sm-12 col-md-6">
-	    <label for="apellido">Apellido</label>
-	    <input type="text" id="apellido" placeholder="Apellido" v-model.lazy="registro.apellido"/>
+	    <label for="direccion">Direccion</label>
+	    <input type="text" id="direccion" placeholder="Direccion" v-model.lazy="registro.direccion"/>
 	  </div>
 	  <div class="col-sm-12 col-md-6">
-	    <label for="nacionalidad">Nacionalidad</label>
-	    <input type="text" id="isbn" placeholder="Nacionalidad" v-model.lazy="registro.nacionalidad"/>
-	  </div>
-	  <div class="col-sm-12 col-md-6">
-	    <label for="email">E-mail</label>
-	    <input type="text" id="email" placeholder="E-mail" v-model.lazy="registro.email"/>
+	    <label for="telefono">Telefono</label>
+	    <input type="text" id="telefono" placeholder="Telefono" v-model.lazy="registro.telefono"/>
 	  </div>
 	</div>
-	<button type="submit" class="primary" @click.prevent="addOrUpdateRecord('libros')">Enviar</button>
+	<button type="submit" class="primary" @click.prevent="addOrUpdateRecord('editoriales')">Enviar</button>
 	<button class="danger" @click.prevent="cancel">Cancelar</button>
       </fieldset>
     </form>
@@ -38,14 +34,15 @@ import { EventBus } from '../event-bus'
 
 export default {
     mixins:[apiRequests],
-    name:'DialogAuthor',
+    name:'DialogEditorial',
     data(){
 	return {
 	    titulo:''
 	}
     },
     created(){
-	EventBus.$on('displayDialogAutores', (payload)=>{
+	EventBus.$on('displayDialogEditoriales', (payload)=>{
+	    console.log(payload);
 	    if (payload.task==='crear'){
 		this.titulo="Agregar registro";
 		this.methodType='post';

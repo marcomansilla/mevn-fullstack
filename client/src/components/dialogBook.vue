@@ -52,7 +52,7 @@ export default {
     },
     created(){
 	EventBus.$on('displayDialogLibros', (payload)=>{
-	    console.log(payload)
+	    console.log(payload);
 	    if (payload.task==='crear'){
 		this.titulo="Agregar registro";
 		this.methodType='post';

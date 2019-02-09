@@ -64,7 +64,7 @@
   <!-- dialog modal experiment -->
   <DialogBook v-show="displayDialogLibros" @cancel-action="displayDialogLibros=false"/>
   <DialogAuthor v-show="displayDialogAutores" @cancel-action="displayDialogAutores=false"/>
-  <DialogBook v-show="displayDialogLibros" @cancel-action="displayDialogLibros=false"/>
+  <DialogEditorial v-show="displayDialogEditoriales" @cancel-action="displayDialogEditoriales=false"/>
 </div>
 </template>
 
@@ -73,18 +73,21 @@ import { EventBus } from '../event-bus.js'
 import {apiRequests} from '../mixins/apiRequests.js'
 import DialogBook from './dialogBook'
 import DialogAuthor from './dialogAuthors'
+import DialogEditorial from './dialogEditorials'
 
 export default {
     mixins:[apiRequests],
     name: 'listado',
     components:{
 	DialogBook,
-	DialogAuthor
+	DialogAuthor,
+	DialogEditorial
     },
     data(){
 	return {
 	    displayDialogLibros:false,
 	    displayDialogAutores:false,
+	    displayDialogEditoriales:false,
 	    error:null
 	}
     },
