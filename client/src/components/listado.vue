@@ -96,7 +96,6 @@ export default {
 	    return string.charAt(0).toUpperCase() + string.slice(1);
 	},
 	async openDialog(task, coleccion, registro={}){
-	    console.log(`displayDialog${this.capitalizeFirstLetter(coleccion)}`)
 	    this[`displayDialog${this.capitalizeFirstLetter(coleccion)}`]=true
 	    await EventBus.$emit(`displayDialog${this.capitalizeFirstLetter(coleccion)}`, {task, coleccion, registro})
 	},

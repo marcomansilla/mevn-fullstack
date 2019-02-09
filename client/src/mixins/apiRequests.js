@@ -12,7 +12,7 @@ export const apiRequests = {
 	    libros:[],
 	    autores:[],
 	    editoriales:[],
-	    url : 'http://localhost:3000/api/'
+	    url : 'api/'
 	};
     },
     methods:{
@@ -26,7 +26,6 @@ export const apiRequests = {
 	    if (res.status==201){
 		EventBus.$emit(`${this.coleccion}Success`, this.coleccion);
 		this.registro={};
-		console.log('it works!, yay!!!');
 	    }else{
 		console.log(res);
 	    }
